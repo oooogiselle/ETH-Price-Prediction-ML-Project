@@ -1,7 +1,6 @@
 # ETH-Price-Prediction-ML-Project
 
-A time-series & ML project predicting **Ethereum (ETH-USD)** prices, adapted
-from [dushyant18033/BTC-Price-Prediction-ML-Project](https://github.com/dushyant18033/BTC-Price-Prediction-ML-Project).
+A time-series & ML project predicting **Ethereum (ETH-USD)** prices
 
 ## What's different from the original BTC project
 
