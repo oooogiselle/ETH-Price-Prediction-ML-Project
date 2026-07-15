@@ -1,22 +1,40 @@
 # ETH-Price-Prediction-ML-Project
 
-A time-series & ML project predicting **Ethereum (ETH-USD)** prices, adapted
-from [dushyant18033/BTC-Price-Prediction-ML-Project](https://github.com/dushyant18033/BTC-Price-Prediction-ML-Project).
+A time-series & ML project predicting **Ethereum (ETH-USD)** prices.
 
-## What's different from the original BTC project
+## Visualizations
 
-| | Original (BTC) | This variation (ETH) |
-|---|---|---|
-| Asset | Bitcoin | Ethereum |
-| Data source | CoinMarketCap web API | `yfinance` (free, no API key) |
-| Classical models | AR, ARMA, ARIMA, SARIMAX, GARCH-SARIMAX, VAR | same suite, kept for comparison |
-| Regression models | ElasticNet, Bayesian Ridge, Polynomial Regression | same suite, kept for comparison |
-| **New models** | — | **Random Forest, XGBoost, LSTM** |
-| Model comparison | Manual, via paper | `run_all.py` runs everything and prints an RMSE/MAE/MAPE leaderboard |
+These are chosen to say something specific about *this* project, not just
+generic time-series plots:
 
-The classical statistical baseline is kept intact so the new tree-based and
-deep-learning models can be benchmarked directly against it on the same
-data and the same train/test split.
+- **OHLC candlestick + volume** -- the raw data is OHLCV, so show it as OHLCV,
+  not just a closing-price line
+
+![Candlestick + Volume](imgs/candlestick_volume.png)
+
+- **GARCH conditional volatility** -- the direct visual justification for why
+  GARCH-SARIMAX exists in the model suite: ETH's volatility clustering is
+  something plain SARIMAX can't capture on its own
+
+![GARCH Volatility](imgs/garch_volatility.png)
+
+- **Average RMSE by model family** -- the actual question this variation
+  raises: do the newly-added tree ensembles and deep learning beat the
+  original project's classical time-series suite?
+
+![Model Family Comparison](imgs/model_family_comparison.png)
+
+- **XGBoost feature importance** -- which lagged day matters most when
+  predicting tomorrow's close
+
+![Feature Importance](imgs/feature_importance.png)
+
+- **Prediction error vs. realized volatility** -- does XGBoost's error
+  specifically get worse during ETH's volatile stretches?
+
+![Error vs Volatility](imgs/error_vs_volatility.png)
+
+*(Run `python data_loader.py`, then `python run_all.py` and `python visualize.py`, to regenerate these -- see below.)*
 
 ## Project Structure
 
@@ -48,7 +66,8 @@ pip install -r requirements.txt
 ```bash
 python data_loader.py     # fetch and cache ETH-USD data
 python auto_arima.py      # (optional) find best ARIMA order, update ORDER constants
-python run_all.py         # run every model and print the RMSE leaderboard
+python run_all.py         # run every model, print the RMSE leaderboard, and save imgs/model_family_comparison.png
+python visualize.py       # generate the remaining README plots (candlestick, GARCH volatility, feature importance, error vs volatility)
 ```
 
 Or run any single model script directly, e.g. `python xgboost_model.py`.
