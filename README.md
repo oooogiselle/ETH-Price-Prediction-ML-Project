@@ -19,13 +19,25 @@ generic time-series plots:
 ![GARCH Volatility](imgs/garch_volatility.png)
 
 - **Average RMSE by model family** -- the actual question this variation
-  raises: do the newly-added tree ensembles and deep learning beat the
-  original project's classical time-series suite?
+  raises: do the newly-added tree ensembles and regression models beat the
+  original project's classical time-series suite? Yes, by an order of
+  magnitude (~$110 RMSE vs. ~$1,200), but not because they're inherently
+  better forecasters of ETH. The classical family (AR, ARMA, ARIMA, SARIMAX,
+  VAR) forecasts the *entire* held-out test period blind from a single point
+  in time, so its errors compound over hundreds of days. The regression/tree
+  models (ElasticNet, Bayesian Ridge, Polynomial Regression, Random Forest,
+  XGBoost) instead predict only one day ahead at a time, using the *true*
+  previous 10 days of closing prices as lag features -- a fundamentally
+  easier task, and the real reason for the gap. (LSTM would be a fairer
+  comparison against the lag-feature models since it's also windowed one-step
+  prediction, but is excluded from this chart unless `tensorflow` is
+  installed -- see Setup.)
 
 ![Model Family Comparison](imgs/model_family_comparison.png)
 
 - **XGBoost feature importance** -- which lagged day matters most when
-  predicting tomorrow's close
+  predicting tomorrow's close (yesterday's close alone accounts for ~99% of
+  the importance, which is expected for a near-random-walk asset like ETH)
 
 ![Feature Importance](imgs/feature_importance.png)
 
@@ -58,7 +70,8 @@ run_all.py              # runs every model, prints leaderboard
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt        # full install, includes tensorflow (needed for lstm_model.py)
+pip install -r requirements-core.txt   # everything except tensorflow, if you don't need the LSTM model
 ```
 
 ## How to Run
