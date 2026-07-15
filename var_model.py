@@ -17,8 +17,9 @@ def run():
 
     preds_close = forecast[:, 0]
 
-    report("VAR", test_df["close"], preds_close)
+    result = report("VAR", test_df["close"], preds_close)
     plot_predictions(test_df["close"], preds_close, "VAR Model - ETH-USD", "imgs/var_results.png")
+    return result
 
 
 if __name__ == "__main__":

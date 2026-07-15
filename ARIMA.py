@@ -15,8 +15,9 @@ def run():
     preds = model.forecast(steps=len(test))
     preds.index = test.index
 
-    report("ARIMA", test, preds)
+    result = report("ARIMA", test, preds)
     plot_predictions(test, preds, "ARIMA Model - ETH-USD", "imgs/arima_results.png")
+    return result
 
 
 if __name__ == "__main__":

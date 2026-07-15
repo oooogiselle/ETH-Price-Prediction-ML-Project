@@ -15,15 +15,16 @@ def run():
 
     model = SARIMAX(
         train_y, exog=train_x, order=ORDER, seasonal_order=SEASONAL_ORDER,
-        enforce_stationarity=False, enforce_invertibility=False,
+        enforce_stationarity=True, enforce_invertibility=True,
     ).fit(disp=False)
 
     preds = model.forecast(steps=len(test_y), exog=test_x)
     preds.index = test_y.index
 
-    report("SARIMAX", test_y, preds)
+    result = report("SARIMAX", test_y, preds)
     plot_predictions(test_y, preds, "SARIMAX Model - ETH-USD", "imgs/sarimax_results.png")
-    return model, test_y, preds
+    result.update({"fitted_model": model, "test_y": test_y, "preds": preds})
+    return result
 
 
 if __name__ == "__main__":

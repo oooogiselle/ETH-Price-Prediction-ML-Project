@@ -21,8 +21,9 @@ def run():
     model.fit(X_train, y_train)
     preds = model.predict(X_test)
 
-    report("PolynomialRegression", y_test, preds)
+    result = report("PolynomialRegression", y_test, preds)
     plot_predictions(y_test, preds, "Polynomial Regression - ETH-USD", "imgs/polyreg_results.png")
+    return result
 
 
 if __name__ == "__main__":

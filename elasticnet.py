@@ -16,8 +16,9 @@ def run():
     model = ElasticNetCV(cv=5, random_state=42).fit(X_train, y_train)
     preds = model.predict(X_test)
 
-    report("ElasticNet", y_test, preds)
+    result = report("ElasticNet", y_test, preds)
     plot_predictions(y_test, preds, "ElasticNet Regression - ETH-USD", "imgs/elasticnet_results.png")
+    return result
 
 
 if __name__ == "__main__":

@@ -15,8 +15,9 @@ def run():
     preds = model.forecast(steps=len(test))
     preds.index = test.index
 
-    report("AR", test, preds)
+    result = report("AR", test, preds)
     plot_predictions(test, preds, "AR Model - ETH-USD", "imgs/ar_results.png")
+    return result
 
 
 if __name__ == "__main__":

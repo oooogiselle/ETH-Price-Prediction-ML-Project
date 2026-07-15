@@ -11,7 +11,10 @@ from utils import report, plot_predictions
 
 
 def run():
-    model, test_y, sarimax_preds = run_sarimax()
+    sarimax_result = run_sarimax()
+    model = sarimax_result["fitted_model"]
+    test_y = sarimax_result["test_y"]
+    sarimax_preds = sarimax_result["preds"]
     resid = model.resid.dropna()
 
     garch = arch_model(resid, vol="Garch", p=1, q=1).fit(disp="off")
@@ -21,8 +24,9 @@ def run():
     combined_preds = sarimax_preds + vol_adjustment
     combined_preds.index = test_y.index
 
-    report("GARCH-SARIMAX", test_y, combined_preds)
+    result = report("GARCH-SARIMAX", test_y, combined_preds)
     plot_predictions(test_y, combined_preds, "GARCH+SARIMAX Model - ETH-USD", "imgs/garch_sarimax_results.png")
+    return result
 
 
 if __name__ == "__main__":

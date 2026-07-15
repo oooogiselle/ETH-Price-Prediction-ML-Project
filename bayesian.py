@@ -16,8 +16,9 @@ def run():
     model = BayesianRidge().fit(X_train, y_train)
     preds = model.predict(X_test)
 
-    report("BayesianRidge", y_test, preds)
+    result = report("BayesianRidge", y_test, preds)
     plot_predictions(y_test, preds, "Bayesian Ridge Regression - ETH-USD", "imgs/bayesian_results.png")
+    return result
 
 
 if __name__ == "__main__":

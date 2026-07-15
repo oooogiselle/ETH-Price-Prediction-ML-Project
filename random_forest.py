@@ -24,11 +24,12 @@ def run():
     ).fit(X_train, y_train)
     preds = model.predict(X_test)
 
-    report("RandomForest", y_test, preds)
+    result = report("RandomForest", y_test, preds)
     plot_predictions(y_test, preds, "Random Forest Regression - ETH-USD", "imgs/random_forest_results.png")
 
     importances = sorted(zip(X_train.columns, model.feature_importances_), key=lambda x: -x[1])
     print("Top feature importances:", importances[:5])
+    return result
 
 
 if __name__ == "__main__":

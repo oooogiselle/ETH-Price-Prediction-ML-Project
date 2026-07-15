@@ -53,8 +53,9 @@ def run():
     preds_scaled = model.predict(X_test, verbose=0).flatten()
     preds = scaler.inverse_transform(preds_scaled.reshape(-1, 1)).flatten()
 
-    report("LSTM", test_s.values, preds)
+    result = report("LSTM", test_s.values, preds)
     plot_predictions(test_s, preds, "LSTM Model - ETH-USD", "imgs/lstm_results.png")
+    return result
 
 
 if __name__ == "__main__":
