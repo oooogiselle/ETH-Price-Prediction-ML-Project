@@ -2,21 +2,6 @@
 
 A time-series & ML project predicting **Ethereum (ETH-USD)** prices
 
-## What's different from the original BTC project
-
-| | Original (BTC) | This variation (ETH) |
-|---|---|---|
-| Asset | Bitcoin | Ethereum |
-| Data source | CoinMarketCap web API | `yfinance` (free, no API key) |
-| Classical models | AR, ARMA, ARIMA, SARIMAX, GARCH-SARIMAX, VAR | same suite, kept for comparison |
-| Regression models | ElasticNet, Bayesian Ridge, Polynomial Regression | same suite, kept for comparison |
-| **New models** | — | **Random Forest, XGBoost, LSTM** |
-| Model comparison | Manual, via paper | `run_all.py` runs everything and prints an RMSE/MAE/MAPE leaderboard |
-
-The classical statistical baseline is kept intact so the new tree-based and
-deep-learning models can be benchmarked directly against it on the same
-data and the same train/test split.
-
 ## Project Structure
 
 ```
